@@ -1,15 +1,18 @@
 CC=gcc
-DEP_ARGTABLE=lib/argtable/argtable3.c
+DEPS_LIB=lib/mpc/mpc.c
 BIN_DIR=out/bin/
-CFLAGS=-ledit
+CFLAGS=-ledit -lm -std=c99 -Wall
+OBJ_DIR=out/obj/
 
-default: bin
+all: compile-obj compile-bin
 
-all: bin
+compile-obj: lib/argtable/argtable3.c
+	mkdir -p $(OBJ_DIR)
+	$(CC) -c lib/argtable/argtable3.c -o $(OBJ_DIR)argtable3.o
 
-bin: zlango.c
+compile-bin: zlango.c lib/mpc/mpc.c out/obj/argtable3.o
 	mkdir -p $(BIN_DIR)
-	$(CC) zlango.c $(DEP_ARGTABLE) $(CFLAGS) -o $(BIN_DIR)zlango
+	$(CC) zlango.c $(DEPS_LIB) $(OBJ_DIR)argtable3.o $(CFLAGS) -o $(BIN_DIR)zlango
 
 clean:
 	rm -rf out/
