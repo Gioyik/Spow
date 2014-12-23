@@ -1,6 +1,6 @@
 /* Create Enumeration of Possible Error Types */
 /* Add SYM and SEXPR as possible lval types */
-enum { LVAL_ERR, LVAL_NUM, LVAL_SYM, LVAL_SEXPR };
+enum { LVAL_ERR, LVAL_NUM, LVAL_SYM, LVAL_SEXPR, LVAL_QEXPR };
 
 typedef struct lval {
     int type;

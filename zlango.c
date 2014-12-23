@@ -52,18 +52,21 @@ int main(int argc, char *argv[])
     Number = mpc_new("number");
     Symbol = mpc_new("symbol");
     Sexpr  = mpc_new("sexpr");
+    Qexpr  = mpc_new("qexpr");
     Expr   = mpc_new("expr");
-    Zlango  = mpc_new("zlango");
+    Zlango = mpc_new("zlango");
   
     mpca_lang(MPCA_LANG_DEFAULT,
     "                                          \
       number : /-?[0-9]+/ ;                    \
-      symbol : '+' | '-' | '*' | '/' ;         \
+      symbol : \"list\" | \"head\" | \"tail\" | \"eval\" \
+             | \"join\" | '+' | '-' | '*' | '/' ;        \
       sexpr  : '(' <expr>* ')' ;               \
-      expr   : <number> | <symbol> | <sexpr> ; \
-      zlango  : /^/ <expr>* /$/ ;               \
+      qexpr  : '{' <expr>* '}' ;               \
+      expr   : <number> | <symbol> | <sexpr> | <qexpr> ; \
+      zlango  : /^/ <expr>* /$/ ;              \
     ",
-    Number, Symbol, Sexpr, Expr, Zlango);
+    Number, Symbol, Sexpr, Qexpr, Expr, Zlango);
 
     /* case: '--help' */
     if (help->count > 0) {
@@ -121,7 +124,7 @@ int main(int argc, char *argv[])
         }
 
         /* Undefine and delete our parsers */
-        mpc_cleanup(5, Number, Symbol, Sexpr, Expr, Zlango);
+        mpc_cleanup(6, Number, Symbol, Sexpr, Qexpr, Expr, Zlango);
 
         return 0;
     }
