@@ -1,19 +1,26 @@
 CC=gcc
-DEPS_LIB=lib/mpc/mpc.c
 BIN_DIR=out/bin/
-CFLAGS=-ledit -lm -std=c99 -Wall
+LFLAGS=-std=c99 -Wall
+RFLAGS=-ledit -lm
 OBJ_DIR=out/obj/
 
-all: compile-obj compile-bin
+all: argtable.o mpc.o lval.o zlango.o zlango
 
-compile-obj: lib/argtable/argtable3.c
-	mkdir -p $(OBJ_DIR)
+argtable.o: lib/argtable/argtable3.c
 	$(CC) -c lib/argtable/argtable3.c -o $(OBJ_DIR)argtable3.o
 
-compile-bin: zlango.c lib/mpc/mpc.c out/obj/argtable3.o
-	mkdir -p $(BIN_DIR)
-	$(CC) zlango.c $(DEPS_LIB) $(OBJ_DIR)argtable3.o $(CFLAGS) -o $(BIN_DIR)zlango
+mpc.o: lib/mpc/mpc.c
+	$(CC) -c lib/mpc/mpc.c -o $(OBJ_DIR)mpc.o $(LFLAGS)
+
+lval.o: src/lval.c
+	$(CC) -c src/lval.c -o $(OBJ_DIR)lval.o $(LFLAGS)
+
+zlango.o: zlango.c
+	$(CC) -c zlango.c -o $(OBJ_DIR)zlango.o $(LFLAGS)
+
+zlango: out/obj/zlango.o out/obj/lval.o out/obj/mpc.o out/obj/argtable3.o
+	$(CC) out/obj/zlango.o out/obj/lval.o out/obj/mpc.o out/obj/argtable3.o -o $(BIN_DIR)zlango $(RFLAGS) $(LFLAGS) 
 
 clean:
-	rm -rf out/
-
+	rm -rf out/bin/*
+	rm -rf out/obj/*.o
