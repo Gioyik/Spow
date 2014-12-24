@@ -1,16 +1,33 @@
-/* Create Enumeration of Possible Error Types */
-/* Add SYM and SEXPR as possible lval types */
-enum { LVAL_ERR, LVAL_NUM, LVAL_SYM, LVAL_SEXPR, LVAL_QEXPR };
+/* Forward Declarations */
 
-typedef struct lval {
-    int type;
-    long num;
-    
-    /* Error and Symbol types have some string data */
-    char* err;
-    char* sym;
-    
-    /* Count and Pointer to a list of "lval*"; */
-    int count;
-    struct lval** cell;
-} lval;
+struct lval;
+struct lenv;
+typedef struct lval lval;
+typedef struct lenv lenv;
+
+/* Zlango Value */
+
+enum { LVAL_ERR, LVAL_NUM,   LVAL_SYM, LVAL_STR, 
+       LVAL_FUN, LVAL_SEXPR, LVAL_QEXPR };
+       
+typedef lval*(*lbuiltin)(lenv*, lval*);
+
+struct lval {
+  int type;
+
+  /* Basic */
+  long num;
+  char* err;
+  char* sym;
+  char* str;
+  
+  /* Function */
+  lbuiltin builtin;
+  lenv* env;
+  lval* formals;
+  lval* body;
+  
+  /* Expression */
+  int count;
+  lval** cell;
+};
