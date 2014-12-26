@@ -25,7 +25,7 @@ Zlango supports inline comments using hash (`#`):
 Printing to standard output can be done using `put` and `putln`:
 
     zlango> (putln "Hello world")
-    Hello sekai!
+    Hello world!
 
 Variables are created with `lvar` (which affects the local environment) and
 `var` (which, as the name suggests, affects the global environment):
@@ -75,5 +75,3 @@ If no argument is given, then it will drop into the REPL (interpreter):
 
 ## License
 Legally, nobody can copyright a programming language (it's like try to copyright spanish, english or any other spoken language). So, **Zlango** as a _programming language_ has a BDFL (Benevolent Dictator for Life) who determines what goes into the language and what doesn't. The BDFL is [Giovanny Andres Gongora Granada](http://gioyik.com) who was the person who invented and started zlango as programming language. However, the code of the interpreter, compiler and files in this repository are licesed under [MIT License](). 
-
-### License of libraries used in this code

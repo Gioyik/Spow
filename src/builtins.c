@@ -231,7 +231,7 @@ lval* builtin_var(lenv* e, lval* a, char* func)
             func, syms->count, a->count - 1);
 
     for (int i = 0; i< syms->count; i++) {
-        if (strcmp(func, "def") == 0) {
+        if (strcmp(func, "lvar") == 0) {
             lenv_def(e, syms->cell[i], a->cell[i+1]);
         }
         if (strcmp(func, "=") == 0) {
@@ -245,7 +245,7 @@ lval* builtin_var(lenv* e, lval* a, char* func)
 
 lval* builtin_def(lenv* e, lval* a)
 {
-    return builtin_var(e, a, "def");
+    return builtin_var(e, a, "lvar");
 }
 
 lval* builtin_put(lenv* e, lval* a)
@@ -778,7 +778,7 @@ void lenv_add_builtins(lenv* e)
 
     /* Assignments */
     lenv_add_builtin(e, "\\", builtin_lambda);
-    lenv_add_builtin(e, "var", builtin_def);
+    lenv_add_builtin(e, "lvar", builtin_def);
     lenv_add_builtin(e, "=", builtin_put);
     lenv_add_builtin(e, "env", builtin_env);
 
