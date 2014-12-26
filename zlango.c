@@ -51,7 +51,6 @@ int main(int argc, char** argv)
     }
     lval_del(stdlib_load);
 
-    /* case: '--repl' */
     if (argc == 1) {
         /* Print Version and Exit Information */
         puts(BLUE);
