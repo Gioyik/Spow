@@ -11,7 +11,7 @@ void completion(const char *buf, linenoiseCompletions *lc) {
 char* input; 
 char historypath[512];
 
-int main(int argc, char *argv[])
+int main(int argc, char** argv)
 {
     /* Create Some Parsers */
     Range    = mpc_new("range");
@@ -30,9 +30,9 @@ int main(int argc, char *argv[])
         range    : /-?[a-zA-Z0-9]+\\.\\.-?[a-zA-Z0-9]+/;          \
         decimal  : /-?[0-9]+\\.[0-9]+/;                           \
         number   : /-?[0-9]+/ ;                                   \
-        string   : /\"(\\\\.|[^\"])*\"/ ;                         \
+        string   : /\"(\\\\.|[^\"])*\"/ | /\'(\\\\.|[^\'])*\'/ ;                         \
         symbol   : /[a-zA-Z0-9_+\\-*\\/\\\\=<>!&|%^]+/ ;          \
-        comment  : /#\\![^\\r\\n]*/;                              \
+        comment  : /#[^\\r\\n]*/;                              \
         sexpr    : '(' <expr>* ')' ;                              \
         qexpr    : '{' <expr>* '}' ;                              \
         expr     : <range> | <decimal> | <number> | <string> |    \
@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
         puts(" /____|_|\\__,_|_| |_|\\__, |\\___/ ");
         puts("                     |___/       ");
         puts(RESET);
-        printf("Zlango repl - " RED "v%s" RESET " (Press Ctrl+c to exit)\n", ZLANGO_VERSION);
+        printf("Zlango repl - " RED "v%s" RESET " (Press Ctrl+c or type exit to finish)\n", ZLANGO_VERSION);
 
         linenoiseSetMultiLine(1);
         linenoiseSetCompletionCallback(completion);

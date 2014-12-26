@@ -1,13 +1,13 @@
-#! Helper core library
+# Helper core library
 
-#!======== Constants ========
+#======== Constants ========
 (var {otherwise} true)
 (var {e}  2.71828182845904523536)
 (var {pi} 3.14159265358979323846)
 
 
-#!======== Basic building blocks ========
-#! Function definitions.
+#======== Basic building blocks ========
+# Function definitions.
 (var {fun} (\ {args body} {
     var (head args) (\ (tail args) body)
 }))
@@ -20,7 +20,7 @@
 (fun {let b} { ((\ {_} b) ()) })
 
 
-#!======== Logical operators ========
+#======== Logical operators ========
 (fun {not x} {! x})
 (fun {inot x} { if (<= x 0) {false} {true} })
 (fun {or x y} {|| x y})
@@ -29,7 +29,7 @@
 (fun {odd n} {not (even n)})
 
 
-#!======== Common lisp adaptations ========
+#======== Common lisp adaptations ========
 (fun {car l} { eval (head l) })
 (fun {cdr l} { (tail l) })
 (fun {flip f a b} {f b a})
@@ -37,7 +37,7 @@
 (fun {comp f g x} {f (g x)})
 
 
-#!======== Switch / Case implementation ========
+#======== Switch / Case implementation ========
 (fun {select & cs} {
     if (== cs nil)
         {error "No Selection Found"}
@@ -51,15 +51,15 @@
 })
 
 
-#!======== Basic list functions ========
+#======== Basic list functions ========
 (fun {fst l} { eval (head l) })
 (fun {snd l} { eval (head (tail l)) })
 (fun {trd l} { eval (head (tail (tail l))) })
 
-#! Length
+# Length
 (fun {len l} { if (== l nil) {0} {++ (len (tail l))} })
 
-#! Nth item in List
+# Nth item in List
 (fun {nth n l} {
     if (or (<= n (len l)) (< n 0))
         {error "List out of bounds"}
@@ -68,55 +68,55 @@
             {nth (-- n) (tail l)}}
 })
 
-#! Take N items
+# Take N items
 (fun {take n l} {
     if (== n 0)
         {nil}
         {join (head l) (take (-- n) (tail l))}
 })
 
-#! Drop N items
+# Drop N items
 (fun {drop n l} {
     if (== n 0)
         {l}
         {drop (-- n) (tail l)}
 })
 
-#! Split at N
+# Split at N
 (fun {split n l} {list (take n l) (drop n l)})
 
-#! Element of List
+# Element of List
 (fun {elem x l} {
     if (== l nil)
         {false}
         {if (== x (fst l)) {true} {elem x (tail l)}}
 })
 
-#! Last item in List
+# Last item in List
 (fun {last l} {nth (-- (len l)) l})
 
-#! Reverse List
+# Reverse List
 (fun {reverse l} {
     if (== l nil)
         {nil}
         {join (reverse (tail l)) (head l)}
 })
 
-#! Maximum
+# Maximum
 (fun {maximum l} {
     if (== (len l) 1)
         {car l}
         {max (car l) (maximum(cdr l))}
 })
 
-#! Minimum
+# Minimum
 (fun {minimum l} {
     if (== (len l) 1)
         {car l}
         {min (car l) (minimum(cdr l))}
 })
 
-#! Range
+# Range
 (fun {range a b} {
     if (== a b)
         {list b}
@@ -126,15 +126,15 @@
         }
 })
 
-#! Left half of a list
+# Left half of a list
 (fun {left-half l} {take (/ (len l) 2) l})
 
-#! Right half of a list
+# Right half of a list
 (fun {right-half l} {drop (/ (len l) 2) l})
 
 
-#!======== Pair list functions ========
-#! Find element in list of pairs {{a b}{c d}}
+#======== Pair list functions ========
+# Find element in list of pairs {{a b}{c d}}
 (fun {lookup x l} {
     if (== l nil)
         {error "No Element Found"}
@@ -145,14 +145,14 @@
         }
 })
 
-#! Zip two lists together into a list of pairs
+# Zip two lists together into a list of pairs
 (fun {zip x y} {
     if (or (== x nil) (== y nil))
         {nil}
         {join (list (join (head x) (head y))) (zip (tail x) (tail y))}
 })
 
-#! Unzip a list of pairs into two list
+# Unzip a list of pairs into two list
 (fun {unzip l} {
     if (== l nil)
         {{nil nil}}
@@ -164,8 +164,8 @@
 })
 
 
-#!======== Extended list functions ========
-#! Merge lists
+#======== Extended list functions ========
+# Merge lists
 (fun {merge x y} {
     if (== x nil)
         {if (== y nil) {nil} {y} }
@@ -177,10 +177,10 @@
         }
 })
 
-#! Small list conditional function
+# Small list conditional function
 (fun {small l} { (or (== l nil) (== (len l) 1)) })
 
-#! Merge sort
+# Merge sort
 (fun {sort l} {
     if (small l)
         {l}
@@ -188,11 +188,11 @@
 })
 
 
-#!======== List Math functions ========
+#======== List Math functions ========
 (fun {sum l} {foldl + 0 l})
 (fun {product l} {foldl * 1 l})
 
-#! Union lists
+# Union lists
 (fun {union la lb} {
     if (== lb nil)
         {la}
@@ -201,7 +201,7 @@
             {union (join la (head lb)) (tail lb)}}
 })
 
-#! Intersect lists
+# Intersect lists
 (fun {intersect la lb} {
     if (== la nil)
         {la}
@@ -210,7 +210,7 @@
             {intersect (tail la) lb}}
 })
 
-#! Subtract lists
+# Subtract lists
 (fun {subtract la lb} {
     if (== la nil)
         {nil}
@@ -220,7 +220,7 @@
 })
 
 
-#!======== Map and Filter ========
+#======== Map and Filter ========
 (fun {map f l} {
     if (== l nil)
         {nil}
@@ -234,15 +234,15 @@
 })
 
 
-#!======== Folds ========
-#! Fold Left
+#======== Folds ========
+# Fold Left
 (fun {foldl f z l} {
     if (== l nil) 
         {z}
         {foldl f (f z (fst l)) (tail l)}
 })
 
-#! Fold Right
+# Fold Right
 (fun {foldr f z l} {
     if (== l nil)
         {z}
@@ -250,15 +250,15 @@
 })
 
 
-#!======== Take and Drop ========
-#! Take While
+#======== Take and Drop ========
+# Take While
 (fun {take-while f l} {
     if (not (unpack f (head l)))
         {nil}
         {join (head l) (take-while f (tail l))}
 })
 
-#! Drop While
+# Drop While
 (fun {drop-while f l} {
     if (not (unpack f (head l)))
         {l}
@@ -266,52 +266,52 @@
 })
 
 
-#!======== Math functions ========
-#! Factorial
+#======== Math functions ========
+# Factorial
 (fun {fact n} {
     if (== n 1)
         {1}
         {* n (fact (-- n))}
 })
 
-#! Square root
+# Square root
 (fun {sqrt a} {
     if (< a 0)
         {error "Imaginary number"}
         {pow e (/ (ln a) 2)}
 })
 
-#! Combinatorics
+# Combinatorics
 (fun {ncr n r} {
     if (> r n)
         {0}
         {/ (fact n) (* (fact r) (fact (- n r)))}
 })
 
-#! Permutations
+# Permutations
 (fun {npr n r} {
     if (> r n)
         {0}
         {/ (fact n) (fact (- n r))}
 })
 
-#! GCD
+# GCD
 (fun {gcd a b} {
     if (== 0 (% a b))
         {b}
         {gcd b (% a b)}
 })
 
-#! LCM
+# LCM
 (fun {lcm a b} {/ (* a b) (gcd a b)})
 
-#! ABS
+# ABS
 (fun {abs a} {if (< a 0) {- a} {a}})
 
-#! MOD
+# MOD
 (fun {mod a b} {% a b})
 
-#! Fibonacci
+# Fibonacci
 (fun {fib n} {
     select
         { (== n 0) 0 }
@@ -327,7 +327,7 @@
         {+ (fib2 (- n 1)) (fib2 (- n 2)) }}
 })
 
-#! Prime
+# Prime
 (fun {isprime n} {
     if (== n 2) {true}
     {if (== (filter (\ {x} {== (% n x) 0}) (range 2 (ceil (sqrt n)))) nil)
