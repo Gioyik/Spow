@@ -1,0 +1,5 @@
+# Zlango math lib
+
+# Constant
+(var e 2.71828182845904523536)
+(var pi 3.14159265358979323846)

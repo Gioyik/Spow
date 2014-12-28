@@ -1,0 +1,126 @@
+# Zlango core lib
+
+# Global definitions
+(var nil {})
+(var else true)
+
+# System macros
+(macro func (f b)
+    {var @(first (qhead f)) (fn (@(tail (qhead f))) @b)})
+
+# Type functions
+(func (int? x) (== (typeof x) :int))
+(func (float? x) (== (typeof x) :float))
+(func (str? x) (== (typeof x) :str))
+(func (builtin? x) (== (typeof x) :builtin))
+(func (fn? x) (== (typeof x) :fn))
+(func (macro? x) (== (typeof x) :macro))
+(func (qsym? x) (== (typeof x) :qsym))
+(func (bool? x) (== (typeof x) :bool))
+(func (qexpr? x) (== (typeof x) :qexpr))
+(func (dict? x) (== (typeof x) :dict))
+(var list? qexpr?)
+
+(func (nil? x) (== x nil))
+
+(func (to-str v) (convert :str v))
+(func (to-qsym v) (convert :qsym v))
+
+# Basic control structures
+(func (do & l)
+    (if (nil? l)
+        nil
+        (head (last l))))
+
+# Higher-order functions
+(func (compose f g & x)
+      (f (g x)))
+
+(func (flip f x y)
+      (f y x))
+
+(func (id x) x)
+
+(func (reduce f l acc)
+    (if (nil? l)
+        acc
+        (f (reduce f (tail l) acc) (head l))))
+
+(func (reduce-left f l acc)
+    (if (nil? l)
+        acc
+        (reduce-left f (tail l) (f acc (head l)))))
+
+(func (map f l)
+    (reduce (fn (acc v)
+                (cons (f v) acc)) l nil))
+
+(func (filter f l)
+    (reduce (fn (acc v)
+                (if (f v)
+                    (cons v acc)
+                    acc)) l nil))
+
+(func (any f l)
+      (reduce (fn (acc v)
+                  (or acc (f v)))
+              l false))
+
+(func (all f l)
+      (reduce (fn (acc v)
+                  (and acc (f v)))
+              l true))
+
+(func (sum l)
+      (reduce + l 0))
+
+(func (product l)
+      (reduce * l 1))
+
+# List functions
+(func (pack f & xs)
+      (f xs))
+
+(func (unpack f xs)
+      (eval (cons f xs)))
+
+(func (nth n l)
+      (let ((s (slice l n (+ n 1))))
+            (if (nil? s)
+                s
+                (head s))))
+
+(func (zip & ls)
+      (if (any nil? ls)
+        nil
+        (cons (map head ls)
+              (unpack zip (map tail ls)))))
+
+(func (take n l)
+      (slice l 0 n))
+
+(func (drop n l)
+      (slice l n))
+
+(func (member? x l)
+      (if (nil? l)
+          false
+          (if (== x (head l))
+              true
+              (member? x (tail l)))))
+
+(func (range s e)
+      (if (>= s e)
+          nil
+          (cons s (range (+ s 1) e))))
+
+# Dict functions
+(func (dict-items d)
+      (zip (dict-keys d) (dict-vals d)))
+
+# Math functions
+(func (random-between s e)
+      (let ((r (random))
+            (ev (* r (- e s)))
+            (v (+ ev s)))
+                v))

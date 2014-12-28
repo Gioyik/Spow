@@ -1,70 +1,71 @@
-#include <string.h>
-#include <math.h>
-#include <time.h>
-#include "structures.h"
-#include "func.h"
-#include "macros.h"
-#include "zlango.h"
-#include "lval.h"
-#include "../lib/mpc/mpc.h"
+#ifndef ZL_BUILTINS_H
+#define ZL_BUILTINS_H
 
-lval* builtin_head(lenv* e, lval* a);
-lval* builtin_tail(lenv* e, lval* a);
-lval* builtin_cons(lenv* e, lval* a);
-lval* builtin_take(lenv* e, lval* a);
-lval* builtin_drop(lenv* e, lval* a);
-lval* builtin_rev(lenv* e, lval* a);
-lval* builtin_sort(lenv* e, lval* a);
-lval* builtin_last(lenv* e, lval* a);
-lval* builtin_list(lenv* e, lval* a);
-lval* builtin_eval(lenv* e, lval* a);
-lval* builtin_join(lenv* e, lval* a);
-lval* builtin_len(lenv* e, lval* a);
-lval* builtin_init(lenv* e, lval* a);
-lval* builtin_sum(lenv* e, lval* a);
-lval* builtin_prod(lenv* e, lval* a);
-lval* builtin_nth(lenv* e, lval* a);
-lval* builtin_lambda(lenv* e, lval* a);
-lval* builtin_op(lenv* e, lval* a, char* op);
-lval* builtin_ord(lenv* e, lval* a, char* op);
-lval* builtin_gt(lenv* e, lval* a);
-lval* builtin_lt(lenv* e, lval* a);
-lval* builtin_ge(lenv* e, lval* a);
-lval* builtin_le(lenv* e, lval* a);
-lval* builtin_cmp(lenv* e, lval* a, char* op);
-lval* builtin_eq(lenv* e, lval* a);
-lval* builtin_ne(lenv* e, lval* a);
-lval* builtin_and(lenv* e, lval* a);
-lval* builtin_or(lenv* e, lval* a);
-lval* builtin_not(lenv* e, lval* a);
-lval* builtin_if(lenv* e, lval* a);
-lval* builtin_load(lenv* e, lval* a);
-lval* builtin_print(lenv* e, lval* a);
-lval* builtin_exit(lenv* e, lval* a);
-lval* builtin_env(lenv* e, lval* a);
-lval* builtin_error(lenv* e, lval* a);
-lval* builtin_def(lenv* e, lval* a);
-lval* builtin_put(lenv* e, lval* a);
-lval* builtin_inc(lenv* e, lval* a);
-lval* builtin_dec(lenv* e, lval* a);
-lval* builtin_add(lenv* e, lval* a);
-lval* builtin_sub(lenv* e, lval* a);
-lval* builtin_mul(lenv* e, lval* a);
-lval* builtin_div(lenv* e, lval* a);
-lval* builtin_mod(lenv* e, lval* a);
-lval* builtin_pow(lenv* e, lval* a);
-lval* builtin_min(lenv* e, lval* a);
-lval* builtin_max(lenv* e, lval* a);
-lval* builtin_xor(lenv* e, lval* a);
-lval* builtin_ln(lenv* e, lval* a);
-lval* builtin_ceil(lenv* e, lval* a);
-lval* builtin_floor(lenv* e, lval* a);
-lval* builtin_rand(lenv* e, lval* a);
-lval* builtin_leftshift(lenv* e, lval* a);
-lval* builtin_rightshift(lenv* e, lval* a);
-lval* builtin_bitwiseand(lenv* e, lval* a);
-lval* builtin_bitwiseor(lenv* e, lval* a);
-lval* builtin_bitwisexor(lenv* e, lval* a);
-void lenv_add_builtin(lenv* e, char* name, lbuiltin func);
-void lenv_add_builtin_var(lenv* e, char* name, lval* val);
-void lenv_add_builtins(lenv* e);
+#include <stdbool.h>
+#include "types.h"
+
+/* language builtins */
+zlval* builtin_num_op(zlenv* e, zlval* a, char* op);
+zlval* builtin_add(zlenv* e, zlval* a);
+zlval* builtin_sub(zlenv* e, zlval* a);
+zlval* builtin_mul(zlenv* e, zlval* a);
+zlval* builtin_div(zlenv* e, zlval* a);
+zlval* builtin_trunc_div(zlenv* e, zlval* a);
+zlval* builtin_mod(zlenv* e, zlval* a);
+zlval* builtin_pow(zlenv* e, zlval* a);
+
+zlval* builtin_ord_op(zlenv* e, zlval* a, char* op);
+zlval* builtin_gt(zlenv* e, zlval* a);
+zlval* builtin_gte(zlenv* e, zlval* a);
+zlval* builtin_lt(zlenv* e, zlval* a);
+zlval* builtin_lte(zlenv* e, zlval* a);
+
+zlval* builtin_logic_op(zlenv* e, zlval* a, char* op);
+zlval* builtin_eq(zlenv* e, zlval* a);
+zlval* builtin_neq(zlenv* e, zlval* a);
+
+zlval* builtin_bool_op(zlenv* e, zlval* a, char* op);
+zlval* builtin_and(zlenv* e, zlval* a);
+zlval* builtin_or(zlenv* e, zlval* a);
+zlval* builtin_not(zlenv* e, zlval* a);
+
+zlval* builtin_head(zlenv* e, zlval* a);
+zlval* builtin_qhead(zlenv* e, zlval* a);
+zlval* builtin_tail(zlenv* e, zlval* a);
+zlval* builtin_first(zlenv* e, zlval* a);
+zlval* builtin_last(zlenv* e, zlval* a);
+zlval* builtin_exceptlast(zlenv* e, zlval* a);
+zlval* builtin_list(zlenv* e, zlval* a);
+zlval* builtin_eval(zlenv* e, zlval* a);
+zlval* builtin_append(zlenv* e, zlval* a);
+zlval* builtin_cons(zlenv* e, zlval* a);
+zlval* builtin_dictget(zlenv* e, zlval* a);
+zlval* builtin_dictset(zlenv* e, zlval* a);
+zlval* builtin_dictdel(zlenv* e, zlval* a);
+zlval* builtin_dicthaskey(zlenv* e, zlval* a);
+zlval* builtin_dictkeys(zlenv* e, zlval* a);
+zlval* builtin_dictvals(zlenv* e, zlval* a);
+
+zlval* builtin_len(zlenv* e, zlval* a);
+zlval* builtin_reverse(zlenv* e, zlval* a);
+zlval* builtin_slice(zlenv* e, zlval* a);
+
+zlval* builtin_if(zlenv* e, zlval* a);
+zlval* builtin_var(zlenv* e, zlval* a, bool global);
+zlval* builtin_define(zlenv* e, zlval* a);
+zlval* builtin_global(zlenv* e, zlval* a);
+zlval* builtin_let(zlenv* e, zlval* a);
+
+zlval* builtin_lambda(zlenv* e, zlval* a);
+zlval* builtin_macro(zlenv* e, zlval* a);
+
+zlval* builtin_typeof(zlenv* e, zlval* a);
+zlval* builtin_convert(zlenv* e, zlval* a);
+zlval* builtin_import(zlenv* e, zlval* a);
+zlval* builtin_print(zlenv* e, zlval* a);
+zlval* builtin_println(zlenv* e, zlval* a);
+zlval* builtin_random(zlenv* e, zlval* a);
+zlval* builtin_error(zlenv* e, zlval* a);
+zlval* builtin_exit(zlenv* e, zlval* a);
+
+#endif

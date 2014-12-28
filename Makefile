@@ -1,40 +1,55 @@
-CC=gcc
-BIN_DIR=out/bin/
-OBJ_DIR=out/obj/
-LFLAGS=-Wall -Iinc -std=c99
-RFLAGS=-ledit -lm
-LNFLAGS=-Wall -Iinc -W -Os -g
+CC=cc
+FLAGS=-std=c11 -Wall -pedantic
+CFLAGS=$(FLAGS) -g
+LFLAGS=-lm
 
-all: out.dir linenoise.o mpc.o builtins.o func.o lenv.o lval.o zlango.o zlango
+BINARY = zlango
+BINDIR = out/bin
+OBJDIR = out/obj
 
-out.dir: 
-	mkdir -p $(BIN_DIR) $(OBJ_DIR)
+all: mkdir linenoise.o mpc.o builtins.o dict.o eval.o main.o parser.o print.o repl.o types.o util.o zlango.o bin
+
+mkdir:
+	mkdir -p $(BINDIR) $(OBJDIR)
 
 linenoise.o: lib/linenoise/linenoise.c
-	$(CC) -c lib/linenoise/linenoise.c -o $(OBJ_DIR)linenoise.o $(LNFLAGS)
+	$(CC) $(CFLAGS) -c lib/linenoise/linenoise.c -o $(OBJDIR)/linenoise.o
 
 mpc.o: lib/mpc/mpc.c
-	$(CC) -c lib/mpc/mpc.c -o $(OBJ_DIR)mpc.o $(LFLAGS)
+	$(CC) $(CFLAGS) -c lib/mpc/mpc.c -o $(OBJDIR)/mpc.o 
 
 builtins.o: src/builtins.c
-	$(CC) -c src/builtins.c -o $(OBJ_DIR)builtins.o $(LFLAGS)
+	$(CC) $(CFLAGS) -c src/builtins.c -o $(OBJDIR)/builtins.o 
 
-func.o: src/func.c
-	$(CC) -c src/func.c -o $(OBJ_DIR)func.o $(LFLAGS)
+dict.o: src/dict.c
+	$(CC) $(CFLAGS) -c src/dict.c -o $(OBJDIR)/dict.o 
 
-lenv.o: src/lenv.c
-	$(CC) -c src/lenv.c -o $(OBJ_DIR)lenv.o $(LFLAGS)
+eval.o: src/eval.c
+	$(CC) $(CFLAGS) -c src/eval.c -o $(OBJDIR)/eval.o 
 
-lval.o: src/lval.c
-	$(CC) -c src/lval.c -o $(OBJ_DIR)lval.o $(LFLAGS)
+main.o: src/main.c
+	$(CC) $(CFLAGS) -c src/main.c -o $(OBJDIR)/main.o 
 
-zlango.o: zlango.c
-	$(CC) -c zlango.c -o $(OBJ_DIR)zlango.o $(LFLAGS)
+parser.o: src/parser.c
+	$(CC) $(CFLAGS) -c src/parser.c -o $(OBJDIR)/parser.o 
 
-zlango: out/obj/zlango.o out/obj/lval.o out/obj/func.o out/obj/lenv.o out/obj/builtins.o out/obj/mpc.o out/obj/linenoise.o
-	$(CC) out/obj/zlango.o out/obj/lval.o out/obj/func.o out/obj/lenv.o out/obj/builtins.o out/obj/mpc.o out/obj/linenoise.o -o $(BIN_DIR)zlango $(RFLAGS) $(LFLAGS) 
+print.o: src/print.c
+	$(CC) $(CFLAGS) -c src/print.c -o $(OBJDIR)/print.o 
 
-.PHONY: clean
+repl.o: src/repl.c
+	$(CC) $(CFLAGS) -c src/repl.c -o $(OBJDIR)/repl.o 
+
+types.o: src/types.c
+	$(CC) $(CFLAGS) -c src/types.c -o $(OBJDIR)/types.o 
+
+util.o: src/util.c
+	$(CC) $(CFLAGS) -c src/util.c -o $(OBJDIR)/util.o 
+
+zlango.o: src/zlango.c
+	$(CC) $(CFLAGS) -c src/zlango.c -o $(OBJDIR)/zlango.o 
+
+bin: 
+	$(CC) $(OBJDIR)/*.o $(CFLAGS) $(LFLAGS) -o $(BINDIR)/$(BINARY)
 
 clean:
 	rm -rf out/
