@@ -2,7 +2,7 @@
 It's a programming language made by people like you.
 
 ## About Zlango
-It was written for fun and to learn more about interpreter/compiler design programming in C. One 
+Zlango starts as a try to create and understand how programming languages are built and how someone could create (or try to create) one. This project has not the vision of be the next big programming languaje in the world and it will not have that goal in the future, but it's a good start to learn about programming languages, interpreters and compilers. This is project is intended to be a platform for everybody who wants to try The language programming challenge. Everything borns in base of [Build your own Lisp book](), it provides a good start but is not a complete guide, this project will try to expand the limits of the book and let people like you start your programming language with all the rules and great things of a professional language.
 
 ### About Micro Parser Combinators (mpc)
 _mpc_ is a lightweight and powerful Parser Combinator library for C.
@@ -30,7 +30,7 @@ Printing to standard output can be done using `put` and `putln`:
 Variables are created with `lvar` (which affects the local environment) and
 `var` (which, as the name suggests, affects the global environment):
 
-    zlango> (lvar foo 'bar')
+    zlango> (var foo 'bar')
     zlango> (putln foo)
     bar
 
