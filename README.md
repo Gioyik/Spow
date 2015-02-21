@@ -1,8 +1,8 @@
-#Zlango
-It's a programming language made by people like you. Zlango is an experimental mini-language based on the Lisp family of programming languages.
+#Spow
+It's a programming language made by people like you. Spow is an experimental mini-language based on the Lisp family of programming languages.
 
-## About Zlango
-Zlango starts as a try to create and understand how programming languages are built and how someone could create (or try to create) one. This project has not the vision of be the next big programming languaje in the world and it will not have that goal in the future, but it's a good start to learn about programming languages, interpreters and compilers. The unique profit in this project is more about interpreter design and programming in C.
+## About Spow
+Spow starts as a try to create and understand how programming languages are built and how someone could create (or try to create) one. This project has not the vision of be the next big programming languaje in the world and it will not have that goal in the future, but it's a good start to learn about programming languages, interpreters and compilers. The unique profit in this project is more about interpreter design and programming in C.
 
 This is project is intended to be a platform for everybody who wants to try The language programming challenge. Everything borns in base of [Build your own Lisp book]() and the fantastic [mpc library](), it provides a good start but is not a complete guide, this project will try to expand the limits of the book and let people like you and me start a programming language with all the rules and great things of a professional language.
 
@@ -19,7 +19,7 @@ Using _mpc_ might be of interest to you if you are...
 * Implementing [Greenspun's Tenth Rule](http://en.wikipedia.org/wiki/Greenspun%27s_tenth_rule)
 
 ## Features
-Zlango is a mini-language that is inspired by the Lisp family of languages. Thus, it shares most of its features with Lisp and Scheme. These include:
+Spow is a mini-language that is inspired by the Lisp family of languages. Thus, it shares most of its features with Lisp and Scheme. These include:
 
 - Dynamic typing
 - First-class functions, including [anonymous (lambda) functions](http://en.wikipedia.org/wiki/Anonymous_function)
@@ -31,23 +31,23 @@ Zlango is a mini-language that is inspired by the Lisp family of languages. Thus
 - [Homoiconicity](http://en.wikipedia.org/wiki/Homoiconicity) - that is, similar representations of code and data
 - Metaprogramming in the form of simple macros
 
-Currently, Zlango data definition and manipulation capabilities are lacking, but this will hopefully be changed in the future.
+Currently, Spow data definition and manipulation capabilities are lacking, but this will hopefully be changed in the future.
 
 ### Basic features in action
-Zlango supports inline comments using hash (`#`):
+Spow supports inline comments using hash (`#`):
 
     # Comment here
-    (put 'hello') # More comments here
+    (print 'hello') # More comments here
 
-Printing to standard output can be done using `put` and `putln`:
+Printing to standard output can be done using `print` and `println`:
 
-    zlango> (putln 'Hello world')
+    spow> (println 'Hello world')
     Hello world!
 
-Variables are created with `let` (which affects the local environment) and `var` (which, as the name suggests, affects the global environment):
+Variables are created with `define` (which affects the local environment) and `global` (which, as the name suggests, affects the global environment):
 
-    zlango> (var foo 'bar')
-    zlango> (putln foo)
+    spow> (global foo 'bar')
+    spow> (println foo)
     bar
 
 ## Requeriments:
@@ -56,26 +56,26 @@ Variables are created with `let` (which affects the local environment) and `var`
 - `git` to clone the source
 
 ## Build and run
-Most of Zlango dependencies are included in the repository, so you shouldn't need to install anything other than the build tools, so you will need a fairly recent C compiler. First, clone the repository, and then compile using `make`:
+Most of Spow dependencies are included in the repository, so you shouldn't need to install anything other than the build tools, so you will need a fairly recent C compiler. First, clone the repository, and then compile using `make`:
 
-    $ git clone https://github.com/Zlango/zlango
-    $ cd zlango
+    $ git clone https://github.com/Gioyik/spow
+    $ cd spow
     $ make
 
-This will create an `zlango` binary under `out/bin/` directory.
+This will create an `spow` binary under `out/bin/` directory.
 
 Clean up if you want to start over:
 
     $ make clean
 
 ## Usage
-The `zlango` binary can take a single argument - a path to a file to execute.
+The `spow` binary can take a single argument - a path to a file to execute.
 
-    $ ./out/bin/zlango [file].zl
+    $ ./out/bin/spow [file].zl
 
 If no argument is given, then it will drop into the REPL (interpreter):
 
-    $ ./out/bin/zlango
+    $ ./out/bin/spow
 	 ______                         
 	 |__  / | __ _ _ __   __ _  ___  
 	   / /| |/ _` | '_ \ / _` |/ _ \ 
@@ -83,8 +83,8 @@ If no argument is given, then it will drop into the REPL (interpreter):
 	 /____|_|\__,_|_| |_|\__, |\___/ 
 	                     |___/       
 
-	Zlango repl - vX.X.X (Press Ctrl+c or type exit to finish)
-	zlango> 
+	Spow repl - vX.X.X (Press Ctrl+c or type exit to finish)
+	spow> 
 
 ## Docs
 TBD
@@ -834,4 +834,4 @@ Also, thanks goes to the creator of the free "Build Your Own Lisp" online book, 
 
 
 ## License
-Legally, nobody can copyright a programming language (it's like try to copyright spanish, english or any other spoken language). So, **Zlango** as a _programming language_ has a BDFL (Benevolent Dictator for Life) who determines what goes into the language and what doesn't. The BDFL is [Giovanny Andres Gongora Granada](http://gioyik.com) who was the person who started zlango as programming language. However, the code of the interpreter, compiler and files in this repository are licesed under [MIT License](). 
+Legally, nobody can copyright a programming language (it's like try to copyright spanish, english or any other spoken language). So, **Spow** as a _programming language_ has a BDFL (Benevolent Dictator for Life) who determines what goes into the language and what doesn't. The BDFL is [Giovanny Andres Gongora Granada](http://gioyik.com) who was the person who started spow as programming language. However, the code of the interpreter, compiler and files in this repository are licesed under [MIT License](). 

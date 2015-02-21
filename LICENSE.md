@@ -1,11 +1,11 @@
-The Zlango language is licensed under the MIT License. The "language" consists
+The Spow language is licensed under the MIT License. The "language" consists
 of the compiler, interpreter and most of the standard library (the contents of src/),
 and some utilities (most of the rest of the files in this repository). See below
 for exceptions.
 
     Copyright (c) 2014: Giovanny Andres Gongora Granada and other contributors:
  
-    https://github.com/Zlango/zlango/contributors
+    https://github.com/Spow/spow/contributors
  
     Permission is hereby granted, free of charge, to any person obtaining
     a copy of this software and associated documentation files (the
@@ -27,28 +27,28 @@ for exceptions.
     WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-The Zlango language links to the following external libraries, which have their
+The Spow language links to the following external libraries, which have their
 own licenses:
 
 - [TDB](TDB)
 
 
-Zlango's standard library uses the following external libraries, which have
+Spow's standard library uses the following external libraries, which have
 their own licenses:
 
 - [TDB](TDB)
 
 
-The following components of Zlango's standard library have separate licenses:
+The following components of Spow's standard library have separate licenses:
 
 - [TDB](TDB)
 
 
-Zlango builds the following libraries by default, but does not use them itself:
+Spow builds the following libraries by default, but does not use them itself:
 
 - [TDB](TDB)
 
 
-Zlango's build process uses the following external tools:
+Spow's build process uses the following external tools:
 
 - [TDB](TDB)

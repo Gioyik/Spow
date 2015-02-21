@@ -5,14 +5,14 @@
 #include <signal.h>
 #include <errno.h>
 
-#include "../include/zlango.h"
+#include "../include/spow.h"
 #include "../include/assert.h"
 #include "../include/parser.h"
 #include "../include/print.h"
 #include "../include/eval.h"
 #include "../include/util.h"
 
-#define HIST_FILE ".zlango_history"
+#define HIST_FILE ".spow_history"
 
 #if defined(_WIN32)
 
@@ -111,13 +111,13 @@ void run_repl(zlenv* e) {
     puts("                         __/ |      ");
     puts("                        |___/       ");
     puts(RESET);
-    printf("Zlango repl - " RED "%s" RESET " (Press Ctrl+D to exit)\n", get_zl_version());
+    printf("Spow repl - " RED "%s" RESET " (Press Ctrl+D to exit)\n", get_zl_version());
 
     load_history();
 
     while (!repl_aborted) {
         errno = 0;
-        char* input = get_input("zlango> ");
+        char* input = get_input("spow> ");
         if (!input) {
             if (errno == EAGAIN) {
                 continue;

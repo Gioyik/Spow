@@ -1,4 +1,4 @@
-#include "../include/zlango.h"
+#include "../include/spow.h"
 #include "../include/repl.h"
 
 #ifndef EMSCRIPTEN

@@ -1,12 +1,12 @@
-# Zlango core lib
+# Spow core lib
 
 # Global definitions
-(var nil {})
-(var else true)
+(global nil {})
+(global else true)
 
 # System macros
 (macro func (f b)
-    {var @(first (qhead f)) (fn (@(tail (qhead f))) @b)})
+    {global @(first (qhead f)) (fn (@(tail (qhead f))) @b)})
 
 # Type functions
 (func (int? x) (== (typeof x) :int))
@@ -19,7 +19,7 @@
 (func (bool? x) (== (typeof x) :bool))
 (func (qexpr? x) (== (typeof x) :qexpr))
 (func (dict? x) (== (typeof x) :dict))
-(var list? qexpr?)
+(global list? qexpr?)
 
 (func (nil? x) (== x nil))
 

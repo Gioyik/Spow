@@ -3,11 +3,11 @@ FLAGS=-std=c11 -Wall -pedantic
 CFLAGS=$(FLAGS) -g
 LFLAGS=-lm
 
-BINARY = zlango
+BINARY = spow
 BINDIR = out/bin
 OBJDIR = out/obj
 
-all: mkdir linenoise.o mpc.o builtins.o dict.o eval.o main.o parser.o print.o repl.o types.o util.o zlango.o bin
+all: mkdir linenoise.o mpc.o builtins.o dict.o eval.o main.o parser.o print.o repl.o types.o util.o spow.o bin
 
 mkdir:
 	mkdir -p $(BINDIR) $(OBJDIR)
@@ -45,8 +45,8 @@ types.o: src/types.c
 util.o: src/util.c
 	$(CC) $(CFLAGS) -c src/util.c -o $(OBJDIR)/util.o 
 
-zlango.o: src/zlango.c
-	$(CC) $(CFLAGS) -c src/zlango.c -o $(OBJDIR)/zlango.o 
+spow.o: src/spow.c
+	$(CC) $(CFLAGS) -c src/spow.c -o $(OBJDIR)/spow.o 
 
 bin: 
 	$(CC) $(OBJDIR)/*.o $(CFLAGS) $(LFLAGS) -o $(BINDIR)/$(BINARY)

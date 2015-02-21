@@ -1,7 +1,7 @@
 #ifndef ZL_H
 #define ZL_H
 
-#define ZLANGO_VERSION "v0.7.0"
+#define SPOW_VERSION "v0.8.0"
 
 #include "types.h"
 #include "colors.h"

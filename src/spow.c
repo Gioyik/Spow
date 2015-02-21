@@ -1,4 +1,4 @@
-#include "../include/zlango.h"
+#include "../include/spow.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -34,5 +34,5 @@ void teardown_zl(void) {
 }
 
 char* get_zl_version(void) {
-    return ZLANGO_VERSION;
+    return SPOW_VERSION;
 }
