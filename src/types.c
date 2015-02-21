@@ -902,7 +902,7 @@ void zlenv_add_builtins(zlenv* e) {
     zlenv_add_builtin(e, "slice", builtin_slice);
 
     zlenv_add_builtin(e, "if", builtin_if);
-    zlenv_add_builtin(e, "local", builtin_define);
+    zlenv_add_builtin(e, "let", builtin_define);
     zlenv_add_builtin(e, "var", builtin_global);
 
     zlenv_add_builtin(e, "let", builtin_let);
