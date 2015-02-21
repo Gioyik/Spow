@@ -167,68 +167,68 @@ TBD
 
 ### Expressions
 
-Function calls in Awl are defined as [S-Expressions](http://en.wikipedia.org/wiki/S_expression) (symbolic expressions). They are syntactically enclosed in parentheses `()`. The first argument of the expression must be a callable, and is evaluated in the current environment with any following arguments as parameters (this is the iconic "[Polish notation](http://en.wikipedia.org/wiki/Polish_notation)" of Lisp).
+Function calls in Spow are defined as [S-Expressions](http://en.wikipedia.org/wiki/S_expression) (symbolic expressions). They are syntactically enclosed in parentheses `()`. The first argument of the expression must be a callable, and is evaluated in the current environment with any following arguments as parameters (this is the iconic "[Polish notation](http://en.wikipedia.org/wiki/Polish_notation)" of Lisp).
 
-    awl> (+ 5 6)
+    spow> (+ 5 6)
     11
-    awl> (println 'foo')
+    spow> (println 'foo')
     foo
 
 When evaluating user-defined functions, partial application is done automatically for any unfilled arguments (this is currently not done for builtins).  This makes it easy to use higher-order functions quickly:
 
-    awl> (define xs {1 2 3 4})
-    awl> (define square (map (fn (x) (* x x))))
-    awl> (square xs)
+    spow> (define xs {1 2 3 4})
+    spow> (define square (map (fn (x) (* x x))))
+    spow> (square xs)
     {1 4 9 16}
 
 Variable and function identifiers, called "symbols," are evaluated to the values that they map to, except in certain special forms (e.g. when they are being defined):
 
-    awl> (define x 5)
-    awl> (+ x 6)
+    spow> (define x 5)
+    spow> (+ x 6)
     11
 
 The primitive types evaluate to themselves.
 
 Q-Expressions (quoted expressions, often referred to simply as 'lists') are particularly important. They are enclosed inside curly braces `{}`. They are a collection type and behave similar to lists in other languages. They can store any number and mixture of primitive types. And they have one more important ability: expressions that they contain which would normally be evaluated, such as symbols and S-Expressions, are left unevaluated (i.e. they are "quoted"). This allows them to contain arbitrary code, and then be converted and evaluated as S-Expressions:
 
-    awl> (head {1 2 3})
+    spow> (head {1 2 3})
     1
-    awl> (tail {1 2 3})
+    spow> (tail {1 2 3})
     {2 3}
-    awl> (define x {* 3 (+ 2 2)})
-    awl> x
+    spow> (define x {* 3 (+ 2 2)})
+    spow> x
     {* 3 (+ 2 2)}
-    awl> (eval x)
+    spow> (eval x)
     12
 
 There are a few more expression types that are useful in special cases.
 
 E-Expressions (escaped expressions) are denoted with a preceding backslash `\`, and can be used to specifically evaluate a section within a Q-Expression literal:
 
-    awl> {1 2 (+ 2 1)}
+    spow> {1 2 (+ 2 1)}
     {1 2 (+ 2 1)}
-    awl> {1 2 \(+ 2 1)}
+    spow> {1 2 \(+ 2 1)}
     {1 2 3}
 
 C-Expressions (concatenating expressions) are denoted with a preceding at-sign `@`.  They behave similarly to E-Expressions, with the exception that, when given a list (Q-Expression), they "extract" the contents and include it directly in the outer list:
 
-    awl> {1 2 \{3 4}}
+    spow> {1 2 \{3 4}}
     {1 2 {3 4}}
-    awl> {1 2 @{3 4}}
+    spow> {1 2 @{3 4}}
     {1 2 3 4}
 
 Finally, there is another collection type that is slightly more mundane than Q-Expressions and their ilk: Dictionaries. Dictionaries act as simple key-value stores, and are similar to the dictionaries in other languages. They are delimited with square brackets `[]`, use Q-Symbols as their keys, and can store any normal value:
 
-    awl> (dict-get [:foo 12 :bar 43] :foo)
+    spow> (dict-get [:foo 12 :bar 43] :foo)
     12
-    awl> (dict-set [:x 1 :y 2] :z 3)
+    spow> (dict-set [:x 1 :y 2] :z 3)
     [:'x' 1 :'y' 2 :'z' 3]
 
 ### Builtins
 
-Builtins usually behave like normal functions, but they also have the special role of enabling some of Awl's basic features, since they are written in C (for example, the `fn` builtin creates a new anonymous function).
+Builtins usually behave like normal functions, but they also have the special role of enabling some of Spow's basic features, since they are written in C (for example, the `fn` builtin creates a new anonymous function).
 
-Awl makes no distinction between "operators" (`+`, `-`, `*`) and other kinds of builtins - they are simply named differently.
+Spow makes no distinction between "operators" (`+`, `-`, `*`) and other kinds of builtins - they are simply named differently.
 
 <table>
 
@@ -509,7 +509,7 @@ as returned by <code>typeof</code></td>
 <tr>
 <td><code>import</code></td>
 <td><code>(import [path])</code></td>
-<td>Attempts to import the <code>awl</code> file at the given path</td>
+<td>Attempts to import the <code>spow</code> file at the given path</td>
 </tr>
 
 <tr>
@@ -548,7 +548,7 @@ as returned by <code>typeof</code></td>
 
 ### Core Library
 
-In addition to builtins, there exists a core library that Awl imports on startup. Among other things, this library aims to exercise some of Awl's features, as well as provide some basic functional tools.
+In addition to builtins, there exists a core library that Spow imports on startup. Among other things, this library aims to exercise some of Spow's features, as well as provide some basic functional tools.
 
 <table>
 
@@ -830,7 +830,7 @@ Many thanks goes to the following awesome libraries and open source projects, an
 - linenoise
 - clang / LLVM
 
-Also, thanks goes to the creator of the free "Build Your Own Lisp" online book, which is what Awl was inspired from.
+Also, thanks goes to the creator of the free "Build Your Own Lisp" online book, which is what Spow was inspired from.
 
 
 ## License
