@@ -832,9 +832,9 @@ zlval* builtin_import(zlenv* e, zlval* a) {
     // Check the import path
     char* importPath = safe_malloc(strlen(a->cell[0]->str) + 5); // extra space for extension
     strcpy(importPath, a->cell[0]->str);
-    strcat(importPath, ".zl");
+    strcat(importPath, ".spow");
 
-    // Attempt twice: once with the .zl extension, and once with the raw path
+    // Attempt twice: once with the .spow extension, and once with the raw path
     for (int attempt = 0; attempt < 2; attempt++) {
         struct stat s;
         errno = 0;

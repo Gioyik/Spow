@@ -71,7 +71,7 @@ Clean up if you want to start over:
 ## Usage
 The `spow` binary can take a single argument - a path to a file to execute.
 
-    $ ./out/bin/spow [file].zl
+    $ ./out/bin/spow [file].spow
 
 If no argument is given, then it will drop into the REPL (interpreter):
 
